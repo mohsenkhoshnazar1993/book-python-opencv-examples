@@ -1,0 +1,118 @@
+Codes for installing OpenCV on Raspbian
+
+
+step 1:
+   sudo raspi-config
+   sudo apt-get purge wolfram-engine
+
+
+step 2:
+   sudo apt-get update
+   sudo apt-get upgrade
+   sudo reboot
+
+
+step 3:
+   sudo apt-get install build-essential cmake pkg-config
+
+
+step 4:
+   sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
+
+
+step 5:
+   sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+   sudo apt-get install libxvidcore-dev libx264-dev
+
+
+step 6:
+   sudo apt-get install libgtk2.0-dev
+
+
+step 7:
+   sudo apt-get install libatlas-base-dev gfortran
+
+
+step 8:
+   sudo apt-get install python2.7-dev python3-dev
+
+
+step 9:
+   cd ~
+   wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.1.0.zip
+   unzip opencv.zip
+
+   wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.1.0.zip
+   unzip opencv_contrib.zip
+
+
+step 10:
+   wget https://bootstrap.pypa.io/get-pip.py
+   sudo python get-pip.py
+
+
+step 11:
+   sudo pip install virtualenv virtualenvwrapper
+   sudo rm -rf ~/.cache/pip
+
+   echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.profile
+   echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.profile
+   echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.profile
+
+   source ~/.profile
+
+   mkvirtualenv cv -p python2
+
+   source ~/.profile
+   workon cv
+
+
+step 12:
+   pip install numpy
+
+
+step 13:
+   cd ~/opencv-3.1.0/
+   mkdir build
+   cd build
+
+   cmake -D CMAKE_BUILD_TYPE=RELEASE \
+     -D CMAKE_INSTALL_PREFIX=/usr/local \
+     -D INSTALL_C_EXAMPLES=ON \
+     -D INSTALL_PYTHON_EXAMPLES=ON \
+     -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.1.0/modules \
+     -D BUILD_EXAMPLES=ON ..
+
+   make -j4
+
+   make clear
+   make
+
+
+step 14:
+   sudo make install
+   sudo ldconfig
+
+
+step 15:
+   cd ~/.virtualenvs/cv/lib/python2.7/site-packages/
+   ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
+
+   source ~/.profile
+   workon cv
+   python
+   import cv2
+   cv2.__version__
+
+   cd ~
+   ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
+
+   rm -rf opencv-3.1.0 opencv_contrib-3.1.0
+
+
+step 16:
+   sudo apt-get install  python-scipy
+   sudo apt-get install  python-matplotlib
+   sudo apt-get install  python-skimage
+   sudo apt-get install  python-sklearn
+   sudo pip install imutils
