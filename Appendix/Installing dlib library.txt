@@ -1,0 +1,41 @@
+Installing dlib library:
+
+
+On pc:
+
+   C:\Python27\Scripts > pip install dlib-18.17.100-cp27-none-win32.whl
+
+
+On linux:
+   
+   sudo apt-get install build-essential cmake
+   sudo apt-get install libgtk-3-dev
+   sudo apt-get install libboost-all-dev
+
+   pip install numpy
+   pip install scipy
+   pip install scikit-image
+
+   sudo pip install dlib
+
+
+On raspberry pi:
+
+   sudo nano /etc/dphys-swapfile
+
+   sudo /etc/init.d/dphys-swapfile stop
+   sudo /etc/init.d/dphys-swapfile start
+
+   sudo raspi-config
+
+   sudo apt-get update
+   sudo apt-get install build-essential cmake
+   sudo apt-get install libgtk-3-dev
+   sudo apt-get install libboost-all-dev
+
+   pip install numpy
+   pip install scipy
+   pip install scikit-image
+
+   sudo pip install dlib
+
